@@ -25,7 +25,7 @@ import {
   headingLabels,
   insertNewlineContinueMarkup
 } from "codemirror-carve"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it, vi } from "vitest"
 
 const javascript = new Language(defineLanguageFacet({}), jsParser, [], "JavaScript")
 
@@ -141,11 +141,33 @@ describe("command language boundaries", () => {
   })
 
   it("uses the advanced syntax tree when editing beyond the initial parsed region", () => {
+    // Keep parsing deadlines fixed so tree advancement does not depend on CI speed.
+    const clock = vi.spyOn(Date, "now").mockReturnValue(0)
+    try {
+      const doc = `${"# Heading\n\nparagraph\n\n".repeat(4000)}- last`
+      const target = editor(doc)
+      expect(syntaxTree(target.state).length).toBeLessThan(doc.length)
+      expect(insertNewlineContinueMarkup(target)).toBe(true)
+      expect(target.state.doc.toString()).toBe(`${doc}\n- `)
+    } finally {
+      clock.mockRestore()
+    }
+  })
+
+  it("leaves the document unchanged when the command's parse budget expires", () => {
     const doc = `${"# Heading\n\nparagraph\n\n".repeat(4000)}- last`
     const target = editor(doc)
-    expect(syntaxTree(target.state).length).toBeLessThan(doc.length)
-    expect(insertNewlineContinueMarkup(target)).toBe(true)
-    expect(target.state.doc.toString()).toBe(`${doc}\n- `)
+    const initial = target.state
+    expect(syntaxTree(initial).length).toBeLessThan(doc.length)
+    let time = 0
+    const clock = vi.spyOn(Date, "now").mockImplementation(() => (time += 100))
+    try {
+      expect(insertNewlineContinueMarkup(target)).toBe(false)
+      expect(target.state).toBe(initial)
+      expect(target.state.doc.toString()).toBe(doc)
+    } finally {
+      clock.mockRestore()
+    }
   })
 
   it("does not loosen a blank item when the cursor is before its marker", () => {
