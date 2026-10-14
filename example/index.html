@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Carve — highlighting example</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">CodeMirror 6 · local example</p>
+        <h1>Carve markup</h1>
+        <p class="description">Edit the text to try highlighting, block folding and autocompletion.</p>
+      </header>
+      <section class="editor-panel" aria-label="Carve editor">
+        <div class="toolbar">
+          <span class="filename">example.crv</span>
+          <button id="reset" type="button">Reset example</button>
+        </div>
+        <div id="editor"></div>
+        <div class="statusbar">
+          <span id="status"></span>
+          <span>Carve · UTF-8</span>
+        </div>
+      </section>
+      <footer>
+        <span><kbd>Ctrl</kbd> + <kbd>Space</kbd> — completions</span>
+        <span><kbd>Enter</kbd> — continue a list or block quote</span>
+        <span>JavaScript inside <code>```js</code> is highlighted too</span>
+      </footer>
+    </main>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

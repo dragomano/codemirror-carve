@@ -1,0 +1,64 @@
+{
+  "name": "codemirror-carve",
+  "version": "0.1.0",
+  "description": "Carve markup language support for the CodeMirror 6 code editor",
+  "keywords": [
+    "codemirror",
+    "carve",
+    "markdown",
+    "editor"
+  ],
+  "author": "Bugo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dragomano/codemirror-carve.git"
+  },
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "sideEffects": false,
+  "files": [
+    "dist/index.js",
+    "dist/index.cjs",
+    "dist/index.d.ts",
+    "dist/index.d.cts"
+  ],
+  "scripts": {
+    "example": "npm --prefix example run dev --",
+    "build": "node scripts/build.mjs",
+    "prepack": "npm run build",
+    "bundle:local": "node scripts/build-local-bundle.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check . --error-on-warnings",
+    "check:ci": "biome ci . --error-on-warnings",
+    "check:fix": "biome check --write .",
+    "format": "biome format --write ."
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.20.3",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.14",
+    "@lezer/common": "^1.5.3",
+    "@lezer/highlight": "^1.2.5",
+    "lezer-carve": "^0.1.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "@codemirror/buildhelper": "^1.0.2",
+    "@lezer/javascript": "^1.5.6",
+    "esbuild": "0.28.2",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.4"
+  }
+}

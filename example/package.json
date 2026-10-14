@@ -1,0 +1,23 @@
+{
+  "name": "carve-highlighting-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1"
+  },
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.20.3",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/view": "^6.43.14",
+    "@lezer/common": "^1.5.3",
+    "@lezer/highlight": "^1.2.5",
+    "@lezer/javascript": "^1.5.6",
+    "codemirror": "^6.0.2"
+  },
+  "devDependencies": {
+    "vite": "8.3.4"
+  }
+}

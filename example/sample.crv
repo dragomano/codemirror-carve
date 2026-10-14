@@ -1,0 +1,75 @@
+{#intro}
+# Carve in CodeMirror
+
+## Text and formatting
+
+This is *bold text*, /italic text/ and /*both at once*/.
+You can add _underlining_, ~strikethrough~ and =highlighting=.
+Or write H{,2,}O, x{^2^}, `code` and $`a + b = c`.
+
+A link to an [example](https://example.com), a footnote [^note]
+and a cross-reference to the section </#intro>.
+
+%% Comments do not mix with regular markup.
+
+## Citations and bibliography
+
+One source [@smith2020], several [see @smith2020, p. 4; -@jones2019]
+and an integral citation [+@jones2019].
+
+[@smith2020]: {author="Smith" year="2020"} Smith, J. *A Study of Carve*.
+[@jones2019]: {author="Jones" year="2019"} Jones, A. /Notes on Markup/.
+
+Type @ inside a citation group and press Ctrl+Space to choose a source.
+
+## Lists
+
+- First item
+- [ ] Try autocompletion
+- [x] Check highlighting
+
+. Automatic numbering
+. Next item
+
+## Block quote and container
+
+> Carve markup inside a block quote.
+> *Bold text* works here too.
+
+::: note "Please note"
+Fold headings and blocks using the arrows next to the line numbers.
+Press Ctrl+Space on an empty line to insert a new block.
+:::
+
+## Table
+
+|= Feature |= Example |
+| Highlighting | *bold* and /italic/ |
+| Links | [website](https://example.com) |
+^ Editor features
+
+## JavaScript
+
+```js
+// The nested language is highlighted by its own parser.
+const greeting = "Hello, Carve!";
+const numbers = [1, 2, 3];
+console.log(greeting, numbers.map(n => n * 2));
+```
+
+> ```js
+> const quotedCode = true;
+> console.log(quotedCode);
+> ```
+
+## Opaque blocks
+
+```=html
+<strong>*This is raw text*, not Carve.</strong>
+```
+
+%%%
+*This text* inside a comment does not become bold.
+%%%
+
+[^note]: A footnote definition; its label is available in autocompletion.

@@ -1,0 +1,35 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      # lezer-carve is a real dependency from the registry, not a file: link.
+      # This job therefore only goes green once lezer-carve has been published
+      # -- publish the parser first. Until then npm ci exits 404,
+      # which is the correct signal: there is nothing to test against yet.
+      - run: npm ci
+      - run: npm run check:ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
